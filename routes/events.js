@@ -3,8 +3,12 @@ var router = express.Router();
 
 /* GET  a particular user's data */
 router.get('/:id', function(req, res, next) {
-  res.send('respond with a resource');
+    res.send('event data');
 });
 
+/* POST a new event */
+router.post('/', function(req, res, next) {
+    res.send('posted data');
+});
 
 module.exports = router;
