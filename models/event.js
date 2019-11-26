@@ -8,16 +8,20 @@ const Event = mongoose.model('Event', {
 	},
 	location: {
 		type: String,
-		require: true
+		required: true
+	},
+	date: {
+		type: String,
+		required: true
 	},
 	description: {
 		type: String,
 		required: true
 	},
 	comments: [ {
-		user_name: String,
-		comment: String,
-		timeStamp: Number
+        user_name: String,
+        comment: String,
+        timeStamp: Number
 	}],
 	image: {
 		data: Buffer,
@@ -25,4 +29,4 @@ const Event = mongoose.model('Event', {
 	}
 });
 
-module.exports = { Event };
+module.exports = { Event }

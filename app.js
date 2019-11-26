@@ -1,27 +1,32 @@
-// mongoose and mongo connection
-const { mongoose } = require('./db/mongoose')
 
+const { User } = require('./models/user')
+
+
+var indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const eventsRouter = require('./routes/events');
+var attendingRouter = require('./routes/attending');
+var authRouter = require('./routes/auth');
 let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+const cors = require('cors')
 // express-session for managing user sessions
 const session = require('express-session');
 
-let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
-let eventsRouter = require('./routes/events');
-let attendingRouter = require('./routes/attending');
-let authRouter = require('./routes/auth');
+const app = express();
 
-let app = express();
+// mongoose and mongo connection
+const { mongoose } = require('./db/mongoose')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cors()); // to accept request from other ports
 app.use(logger('dev'));
 // body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require('body-parser')
@@ -57,6 +62,7 @@ app.use(sessionValidation);
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
 app.use('/attending', attendingRouter);
+app.use('/users', authRouter);
 
 
 // catch 404 and forward to error handler
