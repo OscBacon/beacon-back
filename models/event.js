@@ -1,36 +1,33 @@
 /* Student mongoose model */
 const mongoose = require('mongoose')
 
-const User = mongoose.model('User', {
-	user_name: {
+const Event = mongoose.model('Event', {
+	title: {
 		type: String,
-		unique: true,
 		required: true,
 		minlength: 4,
-		trim: true
 	},
-	first_name: {
-		type: String,
-		require: true
-	},
-	last_name: {
+	location: {
 		type: String,
 		required: true
 	},
-	email: {
+	date: {
 		type: String,
-		unique: true,
-		require: true
+		required: true
 	},
-	password: {
+	description: {
 		type: String,
-		minlength: 8,
-		require: true
+		required: true
 	},
-	avatar: {
+	comments: [ {
+        user_name: String,
+        comment: String,
+        timeStamp: Number
+	}],
+	image: {
 		data: Buffer,
 		contentType: String
 	}
 })
 
-module.exports = { User }
+module.exports = { Event }
