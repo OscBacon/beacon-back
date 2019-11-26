@@ -51,13 +51,13 @@ router.post('/signup', (req, res, next) => {
 });
 
 // A route to logout a user
-router.post('/users/logout', (req, res) => {
+router.post('/logout', (req, res) => {
     // Remove the session
     req.session.destroy((error) => {
         if (error) {
-            res.status(500).send(error)
+            res.status(500).json({error: error.message})
         } else {
-            res.redirect('/')
+            res.status(200).json({data: "logged out"});
         }
     })
 });
