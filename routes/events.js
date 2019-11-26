@@ -32,8 +32,8 @@ router.post('/', function (req, res) {
 
 // a GET route to get all event
 router.get('/', function (req, res) {
-    Event.find().then((event) => {
-        res.send({ event }) // can wrap in object if want to add more properties
+    Event.find().then((events) => {
+        res.send({ events }) // can wrap in object if want to add more properties
     }, (error) => {
         res.status(500).send(error) // server error
     })
