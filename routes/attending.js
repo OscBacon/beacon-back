@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 /* GET a list of events that the specified user is attending*/
 router.get('/user/:id', function(req, res, next) {
