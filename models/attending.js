@@ -3,13 +3,13 @@ const mongoose = require('mongoose')
 
 const Attending = mongoose.model('Attending', {
 	user_id: {
-		type: Number,
+		type: mongoose.Schema.Types.ObjectId,
 		required: true
 	},
 	event_id: {
-		type: Number,
-		require: true
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
 	}
 })
 
-module.exports = { Attending }
+module.exports = { Attending }

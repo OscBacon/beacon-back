@@ -10,6 +10,9 @@ const Event = mongoose.model('Event', {
 		type: String,
 		required: true
 	},
+	coordinates: {
+		type: [Number]
+	},
 	date: {
 		type: String,
 		required: true
@@ -19,10 +22,13 @@ const Event = mongoose.model('Event', {
 		required: true
 	},
 	comments: [ {
-        user_name: String,
+        user_id: mongoose.Schema.Types.ObjectId,
         comment: String,
         timeStamp: Number
 	}],
+	created_by: {
+		type: mongoose.Schema.Types.ObjectId
+	},
 	image: {
 		data: Buffer,
 		contentType: String
