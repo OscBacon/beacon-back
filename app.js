@@ -26,7 +26,12 @@ const { mongoose } = require('./db/mongoose')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors()); // to accept request from other ports
+let corsOptions = {
+  origin: ['http://localhost:3000'],
+  credentials: true
+};
+
+app.use(cors(corsOptions)); // to accept request from other ports
 app.use(logger('dev'));
 // body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require('body-parser')
@@ -39,7 +44,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    expires: 60000,
+    expires: 300000,
     httpOnly: true
   }
 }));

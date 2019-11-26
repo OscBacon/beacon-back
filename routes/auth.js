@@ -13,14 +13,16 @@ router.post('/login', (req, res, next) => {
     // by their email and password
     User.findByEmailPassword(email, password).then((user) => {
         if (!user) {
-            console.log("nope");
-            res.status(404).redirect('/login');
+            res.status(404).json({
+                error: "invalid login"
+            });
         } else {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
-            console.log("yup");
             req.session.user = user._id;
-            res.status(200).redirect('/dashboard');
+            res.status(200).json({
+                data: user
+            });
         }
     }).catch((error) => {
         res.status(400).json({
@@ -60,8 +62,25 @@ router.post('/users/logout', (req, res) => {
     })
 });
 
-router.get('/test', (req, res) => {
-    res.send("helloo");
-})
+router.get('/current', (req, res) => {
+    if (req.session.user) {
+        return User.findOne({ _id: req.session.user }).then((user) => {
+            if(!user){
+                res.status(400).json({
+                    error: "invalid session token"
+                });
+            }
+            else{
+                res.status(200).json(user);
+            }
+        });
+    }
+    else {
+        res.status(400).json({
+            error: "no current user"
+        });
+    }
+});
+
 
 module.exports = router;
