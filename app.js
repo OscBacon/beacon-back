@@ -27,7 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 let corsOptions = {
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000', 'https://beacon-f.herokuapp.com'],
   credentials: true
 };
 
