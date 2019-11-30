@@ -57,17 +57,15 @@ app.use('/auth', authRouter);
 const validation = (req, res, next) => {
   console.log(req.session.user);
   if (!req.session.user) {
-    res.status(401).send();
+    res.status(401).send("missing session cookie");
   } else {
     next(); // next() moves on to the route.
   }
 };
 
-app.use('/users', usersRouter);
-app.use('/events', eventsRouter);
-app.use('/attendings', attendingRouter);
-app.use('/users', authRouter);
-
+app.use('/users', validation, usersRouter);
+app.use('/events', validation, eventsRouter);
+app.use('/attendings',validation, attendingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
