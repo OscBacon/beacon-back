@@ -65,7 +65,7 @@ const validation = (req, res, next) => {
 
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
-app.use('/attending', attendingRouter);
+app.use('/attendings', attendingRouter);
 app.use('/users', authRouter);
 
 

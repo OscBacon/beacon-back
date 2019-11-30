@@ -91,21 +91,22 @@ router.patch('/:id', (req, res) => {
 	const id = req.params.id
 
 	// get the updated name and year only from the request body.
-	const { title, location, description } = req.body
-	const body = { name, year }
+	const { title, location, description, date, comments, coordinates } = req.body
+	const body = { title, location, description, date, comments, coordinates }
 
 	if (!ObjectID.isValid(id)) {
 		res.status(404).send()
 	}
 
 	// Update the student by their id.
-	Event.findByIdAndUpdate(id, {$set: body}, {new: true}).then((student) => {
-		if (!student) {
+	Event.findByIdAndUpdate(id, {$set: body}, {new: true}).then((event) => {
+		if (!event) {
 			res.status(404).send()
 		} else {   
-			res.send(student)
+			res.send(event)
 		}
 	}).catch((error) => {
+        console.log(error);
 		res.status(400).send() // bad request for changing the student.
 	})
 })
