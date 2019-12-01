@@ -21,7 +21,7 @@ router.post('/', function (req, res) {
         date: req.body.date,
         description: req.body.description,
 		coordinates: req.body.coordinates,
-		created_by: req.session.user 
+		created_by: user_id 
     })
 
     // Save Event to the database

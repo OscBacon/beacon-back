@@ -2,12 +2,14 @@
 const mongoose = require('mongoose')
 
 const Attending = mongoose.model('Attending', {
-	user_id: {
+	user: {
 		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
 		required: true
 	},
-	event_id: {
+	event: {
 		type: mongoose.Schema.Types.ObjectId,
+		ref: "Event",
 		required: true
 	}
 })

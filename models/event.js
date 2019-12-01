@@ -21,11 +21,6 @@ const Event = mongoose.model('Event', {
 		type: String,
 		required: true
 	},
-	comments: [ {
-        user_id: mongoose.Schema.Types.ObjectId,
-        comment: String,
-        timeStamp: Number
-	}],
 	created_by: {
 		type: mongoose.Schema.Types.ObjectId
 	},

@@ -1,12 +1,13 @@
 
 const { User } = require('./models/user')
 
-
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const eventsRouter = require('./routes/events');
-var attendingRouter = require('./routes/attending');
-var authRouter = require('./routes/auth');
+const attendingRouter = require('./routes/attending');
+const commentsRouter = require('./routes/comments')
+
+const authRouter = require('./routes/auth');
 let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
@@ -56,17 +57,18 @@ app.use('/auth', authRouter);
 // Our own express middleware to check for
 // an active user on the session cookie (indicating a logged in user.)
 const validation = (req, res, next) => {
-  // console.log(req.session.user);
-  // if (!req.session.user) {
-  //   res.status(401).send("missing session cookie");
-  // } else {
+  console.log(req.session.user);
+  if (!req.session.user) {
+    res.status(401).send("missing session cookie");
+  } else {
     next(); // next() moves on to the route.
-  // }
+  }
 };
 
 app.use('/users', validation, usersRouter);
 app.use('/events', validation, eventsRouter);
 app.use('/attendings',validation, attendingRouter);
+app.use('/comments', validation, commentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

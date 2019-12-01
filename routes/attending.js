@@ -46,15 +46,11 @@ router.get('/users/:id', (req, res) => {
 	}
 
 	// Otherwise, findById
-	Attending.find({ user_id: id }).then((attending) => {
-		if (!attending) {
-			res.status(404).send()  // could not find this student
-		} else {
-			/// sometimes we wrap returned object in another object:
-			res.send(attending)
-		}
+	Attending.find({ user: id }).populate("event").then((attending) => {
+		const events = attending ? attending : [];
+		res.send(events);
 	}).catch((error) => {
-		res.status(500).send()  // server error
+		res.status(500).send(error.message)  // server error
 	})
 })
 
@@ -68,12 +64,12 @@ router.get('/events/:id', (req, res) => {
 	}
 
 	// Otherwise, findById
-	Attending.find({ event_id: id }).then((attending) => {
+	Attending.find({ event: id }).populate("user").then((attending) => {
 		/// sometimes we wrap returned object in another object:
 		const attendees = attending ? attending : [];
 		res.send(attendees);
 	}).catch((error) => {
-		res.status(500).send()  // server error
+		res.status(500).send(error.message)  // server error
 	})
 })
 
