@@ -86,12 +86,12 @@ router.delete('/:id', (req, res) => {
 		res.status(404).send()
 	}
 
-	// Delete a student by their id
-	User.findByIdAndRemove(id).then((user) => {
-		if (!user) {
+	// Delete an attending by their id
+	Attending.findByIdAndRemove(id).then((attending) => {
+		if (!attending) {
 			res.status(404).send()
 		} else {
-			res.send(user)
+			res.send(attending)
 		}
 	}).catch((error) => {
 		res.status(500).send() // server error, could not delete.
