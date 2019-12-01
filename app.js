@@ -35,7 +35,8 @@ app.use(cors(corsOptions)); // to accept request from other ports
 app.use(logger('dev'));
 // body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require('body-parser')
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
