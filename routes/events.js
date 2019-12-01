@@ -93,8 +93,8 @@ router.patch('/:id', (req, res) => {
 	const id = req.params.id
 
 	// get the updated name and year only from the request body.
-	const { title, location, description, date, comments, coordinates } = req.body
-	const body = { title, location, description, date, comments, coordinates }
+	const { title, location, description, date, comments, coordinates, image } = req.body
+	const body = { title, location, description, date, comments, coordinates, image }
 
 	if (!ObjectID.isValid(id)) {
 		res.status(404).send()
