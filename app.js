@@ -56,12 +56,12 @@ app.use('/auth', authRouter);
 // Our own express middleware to check for
 // an active user on the session cookie (indicating a logged in user.)
 const validation = (req, res, next) => {
-  console.log(req.session.user);
-  if (!req.session.user) {
-    res.status(401).send("missing session cookie");
-  } else {
+  // console.log(req.session.user);
+  // if (!req.session.user) {
+  //   res.status(401).send("missing session cookie");
+  // } else {
     next(); // next() moves on to the route.
-  }
+  // }
 };
 
 app.use('/users', validation, usersRouter);
