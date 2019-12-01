@@ -11,15 +11,17 @@ router.use(function timeLog(req, res, next) {
 })
 
 router.post('/', function (req, res) {
-    console.log(req.body)
+	console.log(req.body)
 
-    // Create a new event using the Student mongoose model
+	const user_id  = req.session.user;
+	
     const event = new Event({
         title: req.body.title,
         location: req.body.location,
         date: req.body.date,
         description: req.body.description,
-        coordinates: req.body.coordinates
+		coordinates: req.body.coordinates,
+		created_by: req.session.user 
     })
 
     // Save Event to the database
@@ -30,7 +32,7 @@ router.post('/', function (req, res) {
     })
 })
 
-// a GET route to get all event
+// a GET route to get all events
 router.get('/', function (req, res) {
     Event.find().then((events) => {
         res.send({ events }) // can wrap in object if want to add more properties
@@ -53,7 +55,7 @@ router.get('/:id', (req, res) => {
 	// Otherwise, findById
 	Event.findById(id).then((event) => {
 		if (!event) {
-			res.status(404).send()  // could not find this student
+			res.status(404).send({error: "event not found"})  // could not find this student
 		} else {
 			/// sometimes we wrap returned object in another object:
 			//res.send({student})   
@@ -77,7 +79,7 @@ router.delete('/:id', (req, res) => {
 	// Delete a student by their id
 	Event.findByIdAndRemove(id).then((event) => {
 		if (!event) {
-			res.status(404).send()
+			res.status(404).send({error: "event not found"})
 		} else {
 			res.send(event)
 		}
@@ -101,7 +103,7 @@ router.patch('/:id', (req, res) => {
 	// Update the student by their id.
 	Event.findByIdAndUpdate(id, {$set: body}, {new: true}).then((event) => {
 		if (!event) {
-			res.status(404).send()
+			res.status(404).send({error: "event not found"})
 		} else {   
 			res.send(event)
 		}
