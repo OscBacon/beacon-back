@@ -91,7 +91,8 @@ router.patch('/:id', (req, res) => {
 
 	// get the updated name and year only from the request body.
 	const { user_name, first_name, last_name, email, password, avatar } = req.body
-	const body = { name, year }
+	const body = { user_name, first_name, last_name, email, password, avatar }
+	
 
 	if (!ObjectID.isValid(id)) {
 		res.status(404).send()
