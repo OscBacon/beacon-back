@@ -25,8 +25,7 @@ const Event = mongoose.model('Event', {
 		type: mongoose.Schema.Types.ObjectId
 	},
 	image: {
-		data: Buffer,
-		contentType: String
+		type: String,
 	}
 });
 

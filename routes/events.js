@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { Event } = require('../models/event')
-const { ObjectID } = require('mongodb')
+const { ObjectID, Buffer } = require('mongodb')
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
@@ -14,16 +14,17 @@ router.post('/', function (req, res) {
 	console.log(req.body)
 
 	const user_id  = req.session.user;
-	
+
     const event = new Event({
         title: req.body.title,
         location: req.body.location,
         date: req.body.date,
         description: req.body.description,
 		coordinates: req.body.coordinates,
+		image: req.body.image,
 		created_by: user_id 
-    })
-
+	})
+	
     // Save Event to the database
     event.save().then((result) => {
         res.send(result)
