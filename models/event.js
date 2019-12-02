@@ -22,7 +22,8 @@ const Event = mongoose.model('Event', {
 		required: true
 	},
 	created_by: {
-		type: mongoose.Schema.Types.ObjectId
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
 	},
 	image: {
 		type: String,

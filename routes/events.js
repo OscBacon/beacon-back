@@ -38,7 +38,7 @@ router.get('/', function (req, res) {
     Event.find().then((events) => {
         res.send({ events }) // can wrap in object if want to add more properties
     }, (error) => {
-        res.status(500).send(error) // server error
+        res.status(500).send({error: error.message}) // server error
     })
 })
 
@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
 	}
 
 	// Otherwise, findById
-	Event.findById(id).then((event) => {
+	Event.findById(id).populate("created_by").then((event) => {
 		if (!event) {
 			res.status(404).send({error: "event not found"})  // could not find this student
 		} else {
@@ -63,10 +63,29 @@ router.get('/:id', (req, res) => {
 			res.send(event)
 		}
 	}).catch((error) => {
-		res.status(500).send()  // server error
+		res.status(500).send({error: error.message})  // server error
 	})
 
 })
+
+router.get('/users/:id', (req, res) => {
+
+/// req.params has the wildcard parameters in the url, in this case, id.
+	// log(req.params.id)
+	const id = req.params.id
+
+	// Good practise: Validate id immediately.
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
+	}
+
+	// Otherwise, findById
+	Event.find({created_by: id}).then((events) => {
+		res.send(events ? events : []);
+	}).catch((error) => {
+		res.status(500).send()  // server error
+	})
+});
 
 /// a DELETE route to remove an event by their id.
 router.delete('/:id', (req, res) => {

@@ -15,8 +15,8 @@ router.post('/', function (req, res) {
 
     // Create a new user using the Student mongoose model
     const attending = new Attending({
-      user_id: req.body.user_id,
-      event_id: req.body.event_id
+      user: req.body.user,
+      event: req.body.event
     })
 
     // Save user to the database
@@ -74,16 +74,16 @@ router.get('/events/:id', (req, res) => {
 })
 
 /// a DELETE route to remove a user by their id.
-router.delete('/:id', (req, res) => {
-	const id = req.params.id
+router.delete('/', (req, res) => {
+	const user = req.body.user;
+	const event = req.body.event;
 
-	// Validate id
-	if (!ObjectID.isValid(id)) {
-		res.status(404).send()
-	}
+	console.log(typeof(user), user);
+	console.log(typeof(event), event);
+	console.log(req.body);
 
 	// Delete an attending by their id
-	Attending.findByIdAndRemove(id).then((attending) => {
+	Attending.findOneAndRemove({user, event}).then((attending) => {
 		if (!attending) {
 			res.status(404).send()
 		} else {
@@ -99,8 +99,8 @@ router.patch('/:id', (req, res) => {
 	const id = req.params.id
 
 	// get the updated name and year only from the request body.
-	const { user_id, event_id } = req.body
-	const body = { user_id, event_id }
+	const { user, event } = req.body
+	const body = { user, event }
 
 	if (!ObjectID.isValid(id)) {
 		res.status(404).send()
