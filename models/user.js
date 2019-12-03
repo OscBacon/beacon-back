@@ -57,15 +57,15 @@ UserSchema.pre('save', function(next) {
 // A static method on the document model.
 // Allows us to find a User document by comparing the hashed password
 //  to a given one, for example when logging in.
-UserSchema.statics.findByEmailPassword = function(email, password) {
+UserSchema.statics.findByUsernamePassword = function(username, password) {
 	const User = this; // binds this to the User model
 	console.log("finding if user exists");
 
-	// First find the user by their email
-	return User.findOne({ email: email }).then((user) => {
+	// First find the user by their username
+	return User.findOne({ user_name: username }).then((user) => {
 		if (!user) {
-			console.log("email not found");
-			return Promise.reject(new Error("email not found"))  // a rejected promise
+			console.log("username not found");
+			return Promise.reject(new Error("username not found"))  // a rejected promise
 		}
 		// if the user exists, make sure their password is correct
 		return new Promise((resolve, reject) => {

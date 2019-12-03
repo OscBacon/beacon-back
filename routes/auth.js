@@ -4,14 +4,14 @@ const { User } = require('../models/user');
 let router = express.Router();
 
 router.post('/login', (req, res, next) => {
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
 
     console.log("logging in user");
 
     // Use the static method on the User model to find a user
-    // by their email and password
-    User.findByEmailPassword(email, password).then((user) => {
+    // by their username and password
+    User.findByUsernamePassword(username, password).then((user) => {
         if (!user) {
             res.status(404).json({
                 error: "invalid login"
