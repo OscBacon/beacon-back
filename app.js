@@ -6,6 +6,7 @@ const usersRouter = require('./routes/users');
 const eventsRouter = require('./routes/events');
 const attendingRouter = require('./routes/attending');
 const commentsRouter = require('./routes/comments')
+const adminRouter = require('./routes/admin')
 
 const authRouter = require('./routes/auth');
 let createError = require('http-errors');
@@ -69,6 +70,7 @@ app.use('/users', validation, usersRouter);
 app.use('/events', validation, eventsRouter);
 app.use('/attendings',validation, attendingRouter);
 app.use('/comments', validation, commentsRouter);
+app.use('/admin', validation, adminRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

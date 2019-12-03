@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
-		minlength: 8,
+		minlength: 4,
 		required: true
 	},
 	avatar: {
